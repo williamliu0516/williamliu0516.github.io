@@ -1,0 +1,124 @@
+/* Single-column academic homepage: white page, one link color, one award color. */
+:root {
+  --paper: #ffffff;
+  --ink: #1f2328;
+  --muted: #5c6370;
+  --rule: #e3e5e8;
+  --link: #1f5aa6;
+  --award: #a3261b;
+  --code-bg: #f6f7f9;
+  --scroll-shade: rgba(31, 35, 40, 0.16);
+  --star: #ca8a04;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 17px/1.6 "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-radius: 2px; }
+
+.page { max-width: 880px; margin: 0 auto; padding: 64px 24px 48px; }
+
+
+/* Intro */
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "id photo" "bio photo";
+  column-gap: 48px;
+  row-gap: 20px;
+}
+.id { grid-area: id; }
+.bio { grid-area: bio; }
+h1 { font-size: 36px; line-height: 1.15; font-weight: 600; margin: 0 0 6px; letter-spacing: -0.01em; }
+.role { color: var(--muted); margin: 0; }
+.bio p { margin: 0 0 14px; max-width: 62ch; }
+.links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 18px; font-weight: 600; }
+.portrait { grid-area: photo; width: 200px; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 4px; display: block; }
+
+/* Sections */
+section { margin-top: 52px; }
+h2 { font-size: 21px; font-weight: 600; margin: 0 0 18px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+
+/* Awards: the one highlighted thing on the page */
+.award { color: var(--award); font-weight: 600; }
+
+/* News */
+.news { list-style: none; margin: 0; padding: 0; }
+.news li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; padding: 5px 0; }
+.news time { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* Publications */
+.note { color: var(--muted); font-size: 15px; margin: -8px 0 22px; }
+.pub { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 28px; align-items: start; margin-bottom: 34px; }
+/* Thumbnails keep their own aspect ratio (from width/height attributes), so nothing is cropped. */
+.pub-media { position: relative; width: 200px; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); background: var(--code-bg); }
+.pub-media img { width: 100%; height: auto; display: block; }
+.pub h3 { font-size: 18px; line-height: 1.35; font-weight: 600; margin: 0 0 4px; }
+/* GitHub star badge beside the title, as on the previous site: GitHub mark, gold star, count. */
+.pub-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.gh-stars { flex-shrink: 0; display: inline-flex; align-items: center; gap: 4px; margin-top: 2px; padding: 3px 8px; border: 1px solid var(--rule); border-radius: 4px; color: var(--ink); font-size: 13px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.gh-stars:hover { border-color: var(--muted); text-decoration: none; }
+.gh-stars svg { width: 14px; height: 14px; display: block; }
+.gh-stars .gh { opacity: 0.85; }
+.gh-stars .star { width: 13px; height: 13px; color: var(--star); }
+.pub h3 a { color: var(--ink); }
+.authors { margin: 0 0 2px; color: var(--muted); font-size: 16px; }
+.authors b { color: var(--ink); font-weight: 600; }
+.venue { margin: 0; font-style: italic; }
+.pub-awards { list-style: none; margin: 4px 0 0; padding: 0; font-size: 16px; }
+.pub-awards li { color: var(--award); }
+.res { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 6px; font-size: 16px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.linkish { font: inherit; color: var(--link); background: none; border: 0; padding: 0; cursor: pointer; }
+.linkish:hover { text-decoration: underline; }
+.bib { position: relative; margin: 10px 0 0; }
+.bib pre { margin: 0; padding: 12px 14px; background: var(--code-bg); border: 1px solid var(--rule); border-radius: 4px; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x: auto; white-space: pre; }
+.bib .copy { position: absolute; top: 8px; right: 10px; font-size: 14px; background: var(--paper); padding: 0 6px; border-radius: 3px; }
+
+/* Education and experience */
+.rows { list-style: none; margin: 0; padding: 0; }
+.rows li { display: flex; justify-content: space-between; gap: 24px; padding: 6px 0; }
+.rows .what { min-width: 0; }
+.rows .what b { font-weight: 600; }
+.rows .what span { display: block; color: var(--muted); }
+.rows time { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+footer { margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 15px; }
+
+@media (max-width: 680px) {
+  body { font-size: 16px; }
+  .page { padding: 32px 16px 32px; }
+  .intro { grid-template-columns: 84px minmax(0, 1fr); grid-template-rows: auto auto; grid-template-areas: "photo id" "bio bio"; column-gap: 16px; row-gap: 18px; }
+  .id { align-self: center; }
+  .portrait { width: 84px; }
+  h1 { font-size: 23px; margin-bottom: 4px; }
+  .role { font-size: 14px; line-height: 1.45; }
+  .pub { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .pub-media { width: 100%; }
+  .news li { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  /* News scrolls inside a short box on phones; a shade at an edge means more items that way. */
+  .news {
+    max-height: 16rem;
+    overflow-y: auto;
+    border-bottom: 1px solid var(--rule);
+    background:
+      linear-gradient(var(--paper) 30%, transparent) center top / 100% 32px no-repeat local,
+      linear-gradient(transparent, var(--paper) 70%) center bottom / 100% 32px no-repeat local,
+      radial-gradient(farthest-side at 50% 0, var(--scroll-shade), transparent) center top / 100% 12px no-repeat scroll,
+      radial-gradient(farthest-side at 50% 100%, var(--scroll-shade), transparent) center bottom / 100% 12px no-repeat scroll;
+    background-color: var(--paper);
+  }
+  .rows li { flex-direction: column; gap: 0; }
+}

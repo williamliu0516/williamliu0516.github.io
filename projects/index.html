@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects · Xiawei (William) Liu</title>
+    <meta name="description" content="Side projects and tools by Xiawei (William) Liu." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230b0c0b'/%3E%3Cpath d='M3.5 4.5L7 8l-3.5 3.5' fill='none' stroke='%233fdd92' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M8.75 11.5h3.75' stroke='%233fdd92' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <style>
+/* @geek-theme:start */
+/* --- tokens ------------------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+
+  /* type */
+  --font: ui-monospace, "SF Mono", SFMono-Regular, "JetBrains Mono",
+    "Fira Code", Menlo, Consolas, monospace;
+  --fs-xs: 11px;
+  --fs-sm: 12.5px;
+  --fs-base: 14px;
+  --fs-lg: 15px;
+  --lh: 1.65;
+
+  /* spacing scale */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 28px;
+  --s7: 40px;
+  --s8: 56px;
+  --s9: 80px;
+
+  /* measure */
+  --measure: 660px;
+
+  /* light palette (default) */
+  --bg: #fcfcfb;
+  --surface: #f4f5f2;
+  --fg: #171a18;
+  --mid: #4b514d;
+  --dim: #7c827e;
+  --line: #e3e5e0;
+  --line-strong: #c9ccc5;
+  --accent: #0b7d4a;
+  --accent-soft: #0b7d4a1f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0c0b;
+    --surface: #131513;
+    --fg: #d6dad5;
+    --mid: #9aa19b;
+    --dim: #6d746e;
+    --line: #202320;
+    --line-strong: #2f332f;
+    --accent: #3fdd92;
+    --accent-soft: #3fdd9218;
+  }
+}
+
+/* Explicit override hook, used for screenshots and for anyone who wants to
+   pin a mode without touching the OS setting. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #fcfcfb;
+  --surface: #f4f5f2;
+  --fg: #171a18;
+  --mid: #4b514d;
+  --dim: #7c827e;
+  --line: #e3e5e0;
+  --line-strong: #c9ccc5;
+  --accent: #0b7d4a;
+  --accent-soft: #0b7d4a1f;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0c0b;
+  --surface: #131513;
+  --fg: #d6dad5;
+  --mid: #9aa19b;
+  --dim: #6d746e;
+  --line: #202320;
+  --line-strong: #2f332f;
+  --accent: #3fdd92;
+  --accent-soft: #3fdd9218;
+}
+
+/* --- base --------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: var(--s8) var(--s5) var(--s9);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  line-height: var(--lh);
+  font-variant-ligatures: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+
+/* A hairline that stays 1 physical pixel on retina. */
+.rule {
+  height: 1px;
+  margin: var(--s6) 0;
+  border: 0;
+  background: var(--line);
+}
+
+/* --- type --------------------------------------------------------------- */
+
+h1 {
+  margin: 0;
+  font-size: var(--fs-base);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--fg);
+}
+
+h1 .sigil,
+h2 .sigil {
+  margin-right: var(--s2);
+  color: var(--accent);
+  font-weight: 400;
+  user-select: none;
+}
+
+h2 {
+  margin: var(--s7) 0 var(--s4);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+p {
+  margin: 0 0 var(--s4);
+  color: var(--mid);
+}
+
+.lede {
+  margin: var(--s4) 0 0;
+  max-width: 56ch;
+  color: var(--mid);
+}
+
+small,
+.note {
+  display: block;
+  font-size: var(--fs-sm);
+  color: var(--dim);
+}
+
+strong {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* --- links -------------------------------------------------------------- */
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.12s linear, color 0.12s linear;
+}
+
+a:hover {
+  border-bottom-color: var(--accent);
+}
+
+a:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+  border-bottom-color: transparent;
+}
+
+a.quiet {
+  color: var(--mid);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+a.quiet:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* --- badges ------------------------------------------------------------- */
+
+.tag {
+  display: inline-block;
+  padding: 1px var(--s2);
+  border: 1px solid var(--line-strong);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+}
+
+.idx {
+  color: var(--dim);
+  font-size: var(--fs-sm);
+  user-select: none;
+}
+
+/* --- command blocks ----------------------------------------------------- */
+
+.cmd {
+  margin: var(--s4) 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.cmd-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: var(--s2) var(--s3);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--dim);
+  user-select: none;
+}
+
+/* Wrap rather than scroll: long install one-liners must stay fully readable
+   on a phone, and pre-wrap keeps the text intact for copy-paste. The hanging
+   indent lines continuation rows up under the command, past the "$". */
+.cmd pre {
+  margin: 0;
+  padding: var(--s3) var(--s3) var(--s3) calc(var(--s3) + 1.5em);
+  text-indent: -1.5em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--fg);
+}
+
+.cmd code {
+  font-family: inherit;
+}
+
+.cmd .sigil {
+  margin-right: var(--s2);
+  color: var(--accent);
+  user-select: none;
+}
+
+/* inline code inside prose */
+p code,
+dd code,
+li code {
+  padding: 1px 5px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-family: inherit;
+  font-size: 0.92em;
+  color: var(--fg);
+  white-space: nowrap;
+}
+
+/* --- definition list ---------------------------------------------------- */
+
+dl.spec {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--s3) var(--s5);
+  margin: var(--s4) 0 0;
+  padding: 0;
+}
+
+dl.spec dt {
+  color: var(--accent);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+dl.spec dt::before {
+  content: "> ";
+  color: var(--dim);
+  user-select: none;
+}
+
+dl.spec dd {
+  margin: 0;
+  color: var(--mid);
+}
+
+/* --- caret -------------------------------------------------------------- */
+
+.caret {
+  display: inline-block;
+  width: 7px;
+  height: 15px;
+  margin-top: var(--s7);
+  background: var(--accent);
+  vertical-align: text-bottom;
+  animation: caret-blink 1.15s step-end infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* --- responsive --------------------------------------------------------- */
+
+@media (max-width: 560px) {
+  body {
+    padding: var(--s7) var(--s4) var(--s8);
+  }
+
+  dl.spec {
+    grid-template-columns: 1fr;
+    gap: var(--s1) 0;
+  }
+
+  dl.spec dd {
+    margin: 0 0 var(--s3);
+  }
+
+  .cmd pre {
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+  }
+
+  a {
+    transition: none;
+  }
+}
+/* @geek-theme:end */
+
+/* --- page ---------------------------------------------------------------- */
+
+.head {
+  padding-bottom: var(--s5);
+  border-bottom: 1px solid var(--line);
+}
+
+.count {
+  margin: var(--s2) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--dim);
+}
+
+ul {
+  counter-reset: entry;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  counter-increment: entry;
+  position: relative;
+  padding: var(--s5) 0 var(--s5) 3.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Ordinal gutter, generated so the list data stays untouched. */
+li::before {
+  content: counter(entry, decimal-leading-zero);
+  position: absolute;
+  top: var(--s5);
+  left: 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh);
+  color: var(--dim);
+  user-select: none;
+  transition: color 0.12s linear;
+}
+
+li:hover::before {
+  color: var(--accent);
+}
+
+.title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s3);
+}
+
+.title a {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.title a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* The JS emits <span class="tag">, styled as the shared badge token. */
+.tag {
+  display: inline-block;
+  padding: 1px var(--s2);
+  border: 1px solid var(--line-strong);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+}
+
+.desc {
+  margin: var(--s2) 0 var(--s3);
+  max-width: 58ch;
+  color: var(--mid);
+}
+
+.links {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--dim);
+  word-break: break-word;
+}
+
+.links a {
+  color: var(--dim);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.links a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.links .sep {
+  padding: 0 var(--s2);
+  user-select: none;
+}
+
+@media (max-width: 560px) {
+  li {
+    padding-left: 2.75rem;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="head">
+        <h1><span class="sigil">$</span>ls ~/projects</h1>
+        <p class="count" id="projects-count"></p>
+      </header>
+
+      <ul id="projects-list">
+        <noscript>
+          <li>
+            <div class="title"><a href="https://xiaweiliu.com/claude-status-bar">Claude Status Bar</a></div>
+            <p class="desc">
+              A terminal status line for Claude Code showing working folder, git branch, model and effort
+              level, and accurate 5-hour and weekly usage.
+            </p>
+            <p class="links">
+              xiaweiliu.com/claude-status-bar
+              <span class="sep">·</span>
+              <a href="https://github.com/williamliu0516/claude-status-bar">source</a>
+            </p>
+          </li>
+          <li>
+            <div class="title"><a href="https://xiaweiliu.com/keyboard-display">Keyboard Display</a></div>
+            <p class="desc">
+              Your Claude Code sessions rendered onto a mechanical keyboard's 142×428 image panel, live.
+            </p>
+            <p class="links">
+              xiaweiliu.com/keyboard-display
+              <span class="sep">·</span>
+              <a href="https://github.com/williamliu0516/context-keyboard-display">source</a>
+            </p>
+          </li>
+          <li>
+            <div class="title"><a href="https://xiaweiliu.com/dotfiles">Dotfiles</a></div>
+            <p class="desc">
+              Ghostty, tmux and zsh the way I use them, installed on a fresh machine with one curl
+              command — Ghostty included.
+            </p>
+            <p class="links">
+              xiaweiliu.com/dotfiles
+              <span class="sep">·</span>
+              <a href="https://github.com/williamliu0516/dotfiles">source</a>
+            </p>
+          </li>
+        </noscript>
+      </ul>
+
+      <span class="caret" aria-hidden="true"></span>
+    </main>
+
+    <script>
+      /* ───────────────────────────────────────────────────────────────
+         ADD A PROJECT: append one object below. Nothing else to touch.
+         Required: title, description, url.  Optional: tag, source.
+         ─────────────────────────────────────────────────────────────── */
+      const PROJECTS = [
+        {
+          title: "Claude Status Bar",
+          description:
+            "A terminal status line for Claude Code showing working folder, git branch, model and effort level, and accurate 5-hour and weekly usage.",
+          url: "https://xiaweiliu.com/claude-status-bar",
+          tag: "CLI",
+          source: "https://github.com/williamliu0516/claude-status-bar",
+        },
+        {
+          title: "Keyboard Display",
+          description:
+            "Your Claude Code sessions rendered onto a mechanical keyboard's 142×428 image panel, live.",
+          url: "https://xiaweiliu.com/keyboard-display",
+          tag: "macOS",
+          source: "https://github.com/williamliu0516/context-keyboard-display",
+        },
+        {
+          title: "Dotfiles",
+          description:
+            "Ghostty, tmux and zsh the way I use them, installed on a fresh machine with one curl command — Ghostty included.",
+          url: "https://xiaweiliu.com/dotfiles",
+          tag: "Linux",
+          source: "https://github.com/williamliu0516/dotfiles",
+        },
+      ];
+
+      (() => {
+        const list = document.getElementById("projects-list");
+        const count = document.getElementById("projects-count");
+        if (!list) return;
+
+        /* Drop the <noscript> placeholder so it can't double up in odd renderers. */
+        list.textContent = "";
+
+        if (count) {
+          count.textContent = `${PROJECTS.length} ${PROJECTS.length === 1 ? "entry" : "entries"}`;
+        }
+
+        PROJECTS.forEach((project) => {
+          const item = document.createElement("li");
+
+          const title = document.createElement("div");
+          title.className = "title";
+
+          const titleLink = document.createElement("a");
+          titleLink.href = project.url;
+          titleLink.textContent = project.title;
+          title.appendChild(titleLink);
+
+          if (project.tag) {
+            const tag = document.createElement("span");
+            tag.className = "tag";
+            tag.textContent = project.tag;
+            title.appendChild(tag);
+          }
+
+          const desc = document.createElement("p");
+          desc.className = "desc";
+          desc.textContent = project.description;
+
+          const links = document.createElement("p");
+          links.className = "links";
+          links.append(project.url.replace(/^https?:\/\//, ""));
+
+          if (project.source) {
+            const sep = document.createElement("span");
+            sep.className = "sep";
+            sep.textContent = "·";
+
+            const sourceLink = document.createElement("a");
+            sourceLink.href = project.source;
+            sourceLink.target = "_blank";
+            sourceLink.rel = "noreferrer";
+            sourceLink.textContent = "source";
+
+            links.append(sep, sourceLink);
+          }
+
+          item.append(title, desc, links);
+          list.appendChild(item);
+        });
+      })();
+    </script>
+  </body>
+</html>
