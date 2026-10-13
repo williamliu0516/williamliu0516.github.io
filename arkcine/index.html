@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ArkCine Support</title>
+<meta name="description" content="Help and contact for ArkCine, a video player for films and series on your own storage and media servers.">
+<link rel="stylesheet" href="arkcine.css">
+</head>
+<body>
+<div class="page">
+
+<header class="top">
+  <a class="brand" href="./">ArkCine</a>
+  <nav>
+    <a href="./" aria-current="page">Support</a>
+    <a href="privacy/">Privacy</a>
+    <a href="#zh" lang="zh-Hans">中文</a>
+  </nav>
+</header>
+
+<main>
+<article lang="en">
+<h1>ArkCine Support</h1>
+<p class="lead">ArkCine plays the films and series on your own storage and media servers, in Dolby Vision and HDR
+where your screen supports them, and builds a poster wall from what it finds. It works with WebDAV and SMB servers,
+and with Jellyfin, Emby and Plex.</p>
+
+<div class="contact">
+  <p>Email: <a href="mailto:support@xiaweiliu.com">support@xiaweiliu.com</a></p>
+  <p>Privacy policy: <a href="privacy/">xiaweiliu.com/arkcine/privacy</a></p>
+</div>
+
+<h2>Asking for help</h2>
+<p>Write to <a href="mailto:support@xiaweiliu.com">support@xiaweiliu.com</a> and say what you did, what happened,
+and the exact message the app showed (a screenshot is fine). It helps to attach a diagnostics report: in Settings,
+open Diagnostics and choose Share Report. The report leaves out passwords, user names, tokens and keys; what it
+contains is listed in the <a href="privacy/#diagnostics">privacy policy</a>. Never send your password.</p>
+
+<h2>Common questions</h2>
+
+<h3>The app cannot reach my server</h3>
+<ul>
+  <li>Check the address: <code>https://</code> or <code>http://</code>, the port, and for WebDAV the path the
+    service lives at, for example <code>https://nas.example.com:5006</code>.</li>
+  <li>Check the user name, the password and the folder. Many servers treat upper and lower case as different.</li>
+  <li>On iPhone and iPad, Settings &gt; Privacy &amp; Security &gt; Local Network &gt; ArkCine must be on. On a Mac,
+    the same switch is in System Settings &gt; Privacy &amp; Security &gt; Local Network.</li>
+  <li>Away from home, the server must be reachable from the internet, or connect to your own VPN first.</li>
+  <li>If the app says the server’s certificate isn’t trusted (common with a self-signed certificate), it shows the
+    certificate’s fingerprint. Choose Trust This Certificate only if the fingerprint matches the one your server
+    shows.</li>
+</ul>
+
+<h3>“The server can only send whole files”</h3>
+<p>The app reads videos a part at a time, which needs a server that supports range requests. Most NAS systems and
+WebDAV servers do; if yours does not, try another WebDAV service on the same storage.</p>
+
+<h3>Slow start, slow seeking or pauses to buffer</h3>
+<p>The app reads the file straight from your server, so start-up and seeking depend on the connection between your
+device and the server. A 4K remux can need well over 50 Mbps at its peaks: check your server’s upload speed when
+you watch away from home, and your Wi-Fi (5 GHz or Ethernet is better than 2.4 GHz). A VPN or a distant server adds
+a delay to every seek.</p>
+
+<h3>How should I name my folders?</h3>
+<ul>
+  <li>One folder per film or series, named with the title and year, for example
+    <code>Big Buck Bunny (2008)</code>.</li>
+  <li>Series can keep episodes in season folders (<code>Season 1</code>, <code>S01</code>); episode numbers are read
+    from names such as <code>S01E02</code>.</li>
+  <li>An NFO file (<code>movie.nfo</code>, <code>tvshow.nfo</code>) with a TMDB or IMDb ID settles the match, and
+    posters stored beside your files are used before TMDB’s.</li>
+  <li>Disc images (<code>.iso</code>) and Blu-ray folders play their main feature, without menus. DVD folders do
+    not play.</li>
+</ul>
+
+<h3>A title has the wrong poster or name</h3>
+<p>Open the title, or the menu on its card, and choose Match… to search TMDB and pick the right entry; your pick
+stays through later scans. Remove Match leaves the folder unmatched, and Match Automatically hands it back to the
+app. Renaming the folder to the title and year, then choosing Rescan, also works.</p>
+
+<h3>It plays in HDR10, not Dolby Vision</h3>
+<p>“HDR10 (DV source)” means the file is Dolby Vision, but the screen, or something between the device and the
+screen, does not take Dolby Vision, so it plays in HDR10. An external TV must support Dolby Vision itself, as must
+every adapter or receiver in between. Dolby Vision Profile 7 (from UHD Blu-ray) plays as Profile 8.1.</p>
+
+<h3>My receiver shows Dolby Digital Plus instead of TrueHD</h3>
+<p>Apple devices cannot send TrueHD to a receiver unchanged, in any app. TrueHD tracks, TrueHD Atmos included,
+play as Dolby Digital Plus 5.1, without height channels; the playback info panel shows what happens to each track.
+Dolby Digital Plus tracks with Atmos play with Atmos.</p>
+
+<h3>Subtitles</h3>
+<p>The app shows subtitles inside the video file, text and picture (PGS) alike, and subtitle files stored beside
+the video (for example <code>Film.en.srt</code>, or in a <code>Subs</code> folder).</p>
+
+<h3>Does removing a source delete my files?</h3>
+<p>No. Removing a source only takes its titles off the wall. Deleting a video from inside the app does delete it on
+the server, and the app asks you to confirm first.</p>
+
+<p class="notice">This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.</p>
+</article>
+
+<article lang="zh-Hans" id="zh" class="lang">
+<h1>ArkCine 支持</h1>
+<p class="lead">ArkCine 播放你自己的存储和媒体服务器上的电影和剧集，屏幕支持时用杜比视界和 HDR 播放，并用找到的内容生成海报墙。
+支持 WebDAV、SMB 服务器，以及 Jellyfin、Emby 和 Plex。</p>
+
+<div class="contact">
+  <p>邮箱：<a href="mailto:support@xiaweiliu.com">support@xiaweiliu.com</a></p>
+  <p>隐私政策：<a href="privacy/#zh">xiaweiliu.com/arkcine/privacy</a></p>
+</div>
+
+<h2>寻求帮助</h2>
+<p>请写信到 <a href="mailto:support@xiaweiliu.com">support@xiaweiliu.com</a>，说明你做了什么、发生了什么，以及 app 显示的原话（截图也可以）。
+最好附上一份诊断报告：在“设置”里打开“诊断”，选择“分享报告”。报告里不含密码、用户名、令牌和密钥，具体内容见<a href="privacy/#zh">隐私政策</a>。请不要发送你的密码。</p>
+
+<h2>常见问题</h2>
+
+<h3>连不上服务器</h3>
+<ul>
+  <li>检查地址：<code>https://</code> 或 <code>http://</code>、端口，WebDAV 还要有服务所在的路径，例如 <code>https://nas.example.com:5006</code>。</li>
+  <li>检查用户名、密码和文件夹。很多服务器区分大小写。</li>
+  <li>iPhone 和 iPad 上要打开“设置 &gt; 隐私与安全性 &gt; 本地网络 &gt; ArkCine”；Mac 上同样的开关在“系统设置 &gt; 隐私与安全性 &gt; 本地网络”。</li>
+  <li>在外面时，服务器要能从外网访问，或者先连上你自己的 VPN。</li>
+  <li>如果 app 提示服务器的证书不受信任（自签名证书常见这种情况），它会显示证书指纹。只有指纹和你服务器上显示的一致时，才选择“信任这个证书”。</li>
+</ul>
+
+<h3>提示“服务器只能整个发送文件”</h3>
+<p>app 分段读取视频，需要服务器支持范围请求（Range）。大多数 NAS 和 WebDAV 服务器都支持；如果你的不支持，可以在同一个存储上换一个 WebDAV 服务。</p>
+
+<h3>起播慢、拖动慢，或者停下来缓冲</h3>
+<p>app 直接从你的服务器读取文件，起播和拖动的速度取决于设备和服务器之间的网络。4K REMUX 的峰值码率可能远超 50 Mbps：
+在外面看时检查服务器的上行速度，也检查你所在的 Wi-Fi（5 GHz 或有线比 2.4 GHz 好）。VPN 或离得很远的服务器会让每次拖动都多等一会儿。</p>
+
+<h3>文件夹怎么命名？</h3>
+<ul>
+  <li>每部电影或剧集一个文件夹，用片名加年份命名，例如 <code>Big Buck Bunny (2008)</code>。</li>
+  <li>剧集可以分季文件夹（<code>Season 1</code>、<code>S01</code>），集号从 <code>S01E02</code> 这样的名字里读出。</li>
+  <li>带 TMDB 或 IMDb 编号的 NFO 文件（<code>movie.nfo</code>、<code>tvshow.nfo</code>）直接决定匹配；放在文件旁边的海报优先于 TMDB 的海报。</li>
+  <li>光盘镜像（<code>.iso</code>）和蓝光文件夹只播正片，不播菜单。DVD 文件夹不能播放。</li>
+</ul>
+
+<h3>海报或片名不对</h3>
+<p>打开这部作品，或者它卡片上的菜单，选择“匹配…”，在 TMDB 里搜索并选对条目；选好的条目以后扫描都不会改。“取消匹配”让这个文件夹不匹配任何条目，
+“自动匹配”交还给 app 自动处理。把文件夹改名为片名加年份再“重新扫描”，也可以。</p>
+
+<h3>播放的是 HDR10，不是杜比视界</h3>
+<p>“HDR10（杜比视界片源）”表示文件是杜比视界，但屏幕、或者设备和屏幕之间的某个环节不支持杜比视界，于是按 HDR10 播放。
+外接电视本身要支持杜比视界，中间的转接头和功放也都要支持。杜比视界 Profile 7（来自 UHD 蓝光）按 Profile 8.1 播放。</p>
+
+<h3>功放显示 Dolby Digital Plus，而不是 TrueHD</h3>
+<p>Apple 设备在任何 app 里都不能把 TrueHD 原样送给功放。TrueHD 音轨（包括 TrueHD 全景声）按 Dolby Digital Plus 5.1 播放，没有天空声道；
+播放信息面板会显示每条音轨怎样处理。带全景声的 Dolby Digital Plus 音轨按全景声播放。</p>
+
+<h3>字幕</h3>
+<p>app 显示视频文件里的字幕（文字字幕和图片字幕 PGS），也会使用视频旁边的字幕文件（例如 <code>Film.zh.srt</code>，或者 <code>Subs</code> 文件夹里的）。</p>
+
+<h3>移除片源会删除我的文件吗？</h3>
+<p>不会。移除片源只是把它的作品从海报墙上拿掉。在 app 里删除视频则会删除服务器上的文件，删除前 app 会请你确认。</p>
+
+<p class="notice">This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.（本应用使用 TMDB 和 TMDB API，但未经 TMDB 认可、认证或批准。）</p>
+</article>
+</main>
+
+<footer>ArkCine · <a href="./">Support</a> · <a href="privacy/">Privacy</a></footer>
+</div>
+</body>
+</html>

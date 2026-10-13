@@ -1,0 +1,79 @@
+/* ArkCine support and privacy pages: one column, system fonts, nothing loaded from other sites. */
+:root {
+  --paper: #ffffff;
+  --ink: #1f2328;
+  --muted: #5c6370;
+  --rule: #e3e5e8;
+  --link: #1f5aa6;
+  --code-bg: #f6f7f9;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 17px/1.65 system-ui, -apple-system, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-radius: 2px; }
+
+.page { max-width: 760px; margin: 0 auto; padding: 48px 24px 40px; }
+
+.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+.brand { font-size: 20px; font-weight: 650; color: var(--ink); letter-spacing: -0.01em; }
+.brand:hover { text-decoration: none; }
+.top nav { display: flex; flex-wrap: wrap; gap: 4px 20px; font-weight: 600; font-size: 16px; }
+.top nav a[aria-current="page"] { color: var(--ink); }
+
+h1 { font-size: 32px; line-height: 1.2; font-weight: 650; margin: 36px 0 6px; letter-spacing: -0.01em; }
+.updated { color: var(--muted); margin: 0 0 24px; font-size: 15px; }
+h2 { font-size: 21px; line-height: 1.3; font-weight: 650; margin: 40px 0 12px; }
+h3 { font-size: 17px; font-weight: 650; margin: 26px 0 6px; }
+p { margin: 0 0 14px; }
+ul, ol { margin: 0 0 14px; padding-left: 1.3em; }
+li { margin: 4px 0; }
+code { font: 0.88em/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere; }
+
+.lead { font-size: 18px; }
+.contact { padding: 14px 18px; background: var(--code-bg); border: 1px solid var(--rule); border-radius: 6px; margin: 20px 0; }
+.contact p { margin: 0; }
+.contact p + p { margin-top: 4px; }
+
+/* Wide tables scroll inside their box instead of widening the page. */
+.table { overflow-x: auto; margin: 0 0 16px; border: 1px solid var(--rule); border-radius: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.5; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+th { font-weight: 650; background: var(--code-bg); }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 600; min-width: 9em; }
+
+.lang { margin-top: 64px; padding-top: 8px; border-top: 2px solid var(--rule); }
+.notice { color: var(--muted); font-size: 15px; }
+
+footer { margin-top: 56px; padding-top: 14px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 14px; }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .page { padding: 28px 16px 32px; }
+  h1 { font-size: 26px; margin-top: 28px; }
+  h2 { font-size: 19px; }
+  td:first-child { min-width: 7em; }
+}
+
+/* On phones each table row becomes a small card: the item in bold, then its purpose and where it is kept. */
+@media (max-width: 640px) {
+  .table { border: 0; overflow: visible; }
+  .table table, .table tbody, .table tr, .table td { display: block; }
+  .table thead { display: none; }
+  .table tr { border: 1px solid var(--rule); border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+  .table td { border: 0; padding: 2px 0; min-width: 0; }
+  .table td:first-child { margin-bottom: 4px; }
+  .table td[data-label]::before { content: attr(data-label) ": "; color: var(--muted); font-weight: 600; }
+  .table td[data-label="用途"]::before, .table td[data-label="位置"]::before { content: attr(data-label) "："; }
+}
