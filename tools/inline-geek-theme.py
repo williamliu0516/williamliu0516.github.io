@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Push geek-theme.css into the inline <style> block of every page that uses it.
 
-geek-theme.css is the single source of truth. The three landing pages live in
-three separate git repos, so instead of <link>ing a shared stylesheet across
+geek-theme.css is the single source of truth. The landing pages live in
+separate git repos, so instead of <link>ing a shared stylesheet across
 repo/host boundaries they each carry a verbatim inlined copy, fenced between:
 
     /* @geek-theme:start */
@@ -20,12 +20,10 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SOURCE = ROOT / "geek-theme.css"
 
-# Repo A pages, plus the two sibling repos checked out next to this one.
+# This repo's page, plus the sibling repo checked out next to this one.
 TARGETS = [
     ROOT / "projects" / "index.html",
-    ROOT / "keyboard-display" / "index.html",
     ROOT.parent / "claude-status-bar" / "index.html",
-    ROOT.parent / "context-keyboard-display" / "index.html",
 ]
 
 START = "/* @geek-theme:start */"

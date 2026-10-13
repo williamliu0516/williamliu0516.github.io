@@ -4,15 +4,13 @@
 
      /projects/            (this repo, projects/index.html)
      /claude-status-bar/   (repo: williamliu0516/claude-status-bar)
-     /keyboard-display/    (repo: williamliu0516/context-keyboard-display,
-                            mirrored here at keyboard-display/index.html)
 
    THIS FILE IS THE SINGLE SOURCE OF TRUTH. Each of those pages carries an
    inlined verbatim copy of everything below, fenced between two marker
    comments named "@geek-theme:start" and "@geek-theme:end", so the pages
-   stay dependency-free across three separate repos and render correctly
+   stay dependency-free across separate repos and render correctly
    from file:// too. After editing this file, re-run the inliner
-   (tools/inline-geek-theme.py) to push the change into all three pages.
+   (tools/inline-geek-theme.py) to push the change into every page.
 
    Deliberately NOT used by the site homepage (/index.html), which keeps its
    own styles.css. Nothing here touches that file.

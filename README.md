@@ -12,4 +12,4 @@ python3 -m http.server 8000
 - `styles.css`: its stylesheet
 - `images/`: portrait and publication teasers (animated WebP, with a still JPG for visitors who turn off motion)
 - `privacy/`: privacy policy for the Hermes Mail Reader OAuth app
-- `projects/`, `keyboard-display/`: side-project pages (they use `geek-theme.css`)
+- `projects/`: side-project list (uses `geek-theme.css`)
