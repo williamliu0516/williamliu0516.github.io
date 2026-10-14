@@ -12,5 +12,6 @@ python3 -m http.server 8000
 - `styles.css`: its stylesheet
 - `images/`: portrait and publication teasers (animated WebP, with a still JPG for visitors who turn off motion)
 - `privacy/`: privacy policy for the Hermes Mail Reader OAuth app
-- `arkcine/`: support page (`index.html`) and privacy policy (`privacy/`) for the ArkCine app, English and Chinese; no analytics or web fonts on these pages
+- `zool/`: support page (`index.html`) and privacy policy (`privacy/`) for the Zool app (it was ArkCine), English and Chinese; no analytics or web fonts on these pages
+- `arkcine/`: redirects to `zool/` (and `arkcine/privacy/` to `zool/privacy/`), so links to the old name keep working
 - `projects/`: side-project list (uses `geek-theme.css`)
