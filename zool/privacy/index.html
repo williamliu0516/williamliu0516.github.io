@@ -22,7 +22,7 @@
 <main>
 <article lang="en">
 <h1>Zool Privacy Policy</h1>
-<p class="updated">Last updated: 13 October 2026</p>
+<p class="updated">Last updated: 17 October 2026</p>
 
 <p>Zool is a video player for Apple devices. It plays films and series from storage and media servers that you
 set up yourself. This page explains what data the app keeps, where data goes, and how to remove it. Zool is
@@ -33,8 +33,9 @@ made by Xiawei Liu (“we”).</p>
   <li>We run no server for the app and collect no personal data. There is no account to create.</li>
   <li>The app has no advertising, no analytics and no third-party tracking code, and it does not track you across
     other companies’ apps or websites.</li>
-  <li>The app connects to the sources you add, to TMDB for posters and descriptions, to plex.tv if you sign in with
-    Plex, and to Apple.</li>
+  <li>The app connects to the sources you add, to TMDB for posters and descriptions, to TheIntroDB and IntroDB for
+    intro and credits times, to plex.tv if you sign in with Plex, to OpenSubtitles when you search for subtitles,
+    and to Apple.</li>
   <li>The addresses and passwords of your sources are kept in your Keychain. Nothing about your library or what you
     watch is sent to us.</li>
 </ul>
@@ -43,12 +44,15 @@ made by Xiawei Liu (“we”).</p>
 <div class="table"><table>
   <thead><tr><th>What</th><th>Why</th><th>Where, and for how long</th></tr></thead>
   <tbody>
-    <tr><td>Each source: its address, user name, password or access token, folder, any request headers you add, and the fingerprint of a certificate you chose to trust</td>
+    <tr><td>Each source: its address, user name, password or access token, folder, any request headers you add, and the fingerprint of a certificate or SSH server key you chose to trust</td>
       <td data-label="Why">To connect to your source</td>
       <td data-label="Where">Your Keychain. If iCloud Keychain is on, Apple syncs it to your other devices signed in to the same Apple Account. Kept until you remove the source.</td></tr>
     <tr><td>Your own TMDB key, if you enter one</td>
       <td data-label="Why">To look titles up with your key</td>
       <td data-label="Where">Your Keychain, synced the same way.</td></tr>
+    <tr><td>Your OpenSubtitles sign-in, if you sign in: an access token, not your password</td>
+      <td data-label="Why">To download more subtitles a day than OpenSubtitles allows without an account</td>
+      <td data-label="Where">Your Keychain, synced like your sources. Kept until you sign out in Settings.</td></tr>
     <tr><td>Library: folder and file names, sizes and dates, and which TMDB entry each title is matched to</td>
       <td data-label="Why">So the library opens without a new scan</td>
       <td data-label="Where">The app’s storage, updated by each scan.</td></tr>
@@ -63,7 +67,19 @@ made by Xiawei Liu (“we”).</p>
       <td data-label="Where">Smaller copies in the app’s cache, deleted when you remove that source.</td></tr>
     <tr><td>Resume positions and watched marks; audio and subtitle choices and subtitle settings</td>
       <td data-label="Why">To continue where you left off and keep your choices</td>
-      <td data-label="Where">The app’s settings on this device. They are not synced. A position in the first minute is not kept, and a video watched past 95% is marked as watched.</td></tr>
+      <td data-label="Where">The app’s settings on this device. With iCloud Sync on (in Settings; on unless you turn it off), also in your own iCloud, in this app’s private CloudKit database, and synced to your devices signed in to the same Apple Account. Apple runs and encrypts it; we cannot read it. A position in the first minute is not kept, and a video watched past 95% is marked as watched.</td></tr>
+    <tr><td>Manual matches, hidden items, folders you added to the library, favorites, playlists, and intro and credits marks you set</td>
+      <td data-label="Why">To keep your choices</td>
+      <td data-label="Where">The app’s storage on this device, and with iCloud Sync on, in your own iCloud as above. Kept until you change them; turning iCloud Sync off keeps them on the device.</td></tr>
+    <tr><td>The record of what you played: title, when, for how long, and on which kind of device</td>
+      <td data-label="Why">Your watch statistics and yearly recap</td>
+      <td data-label="Where">The app’s storage on this device, one file a month. The recap picture leaves the device only when you share it yourself.</td></tr>
+    <tr><td>The lights or scene you chose for Lights, and how dim</td>
+      <td data-label="Why">To dim them while a film plays and put them back afterwards</td>
+      <td data-label="Where">The app’s settings on this device. Not synced.</td></tr>
+    <tr><td>Titles from your library, for Siri, Shortcuts, Spotlight and the widgets</td>
+      <td data-label="Why">So you can find and continue them from outside the app</td>
+      <td data-label="Where">On this device: the system’s Spotlight index, and a folder shared with the app’s widgets (Continue Watching and its pictures).</td></tr>
     <tr><td>A random identifier, created the first time it is needed</td>
       <td data-label="Why">So Jellyfin, Emby and Plex servers can tell this device’s sessions apart</td>
       <td data-label="Where">The app’s settings on this device.</td></tr>
@@ -92,6 +108,13 @@ Searching your library filters it on the device; what you type there is not sent
     server returns is kept in memory only.</li>
   <li><strong>Plex</strong>: you sign in on Plex’s own website in your browser, so the app never sees your Plex
     password. Plex gives the app an access token and the list of your servers.</li>
+  <li><strong>SFTP</strong>: your user name and your password, or your private key, are used to sign in to the
+    server over SSH. The first time, the app shows the server’s key fingerprint and trusts it only once you confirm.</li>
+  <li><strong>FTP</strong>: your user name and password are sent to the server unencrypted, as FTP does; the app says
+    so when you add an FTP server.</li>
+  <li><strong>Folders on your device</strong>: files you choose in the Files app (on this device, in iCloud Drive or
+    on a USB drive; on a Mac, any folder) are read in place. The app keeps a bookmark to the folder on this device
+    only; nothing is sent anywhere.</li>
 </ul>
 <p>Jellyfin, Emby and Plex servers are told the app’s name and version, the kind of device (iPhone, iPad, Mac or
 Apple Vision Pro), the platform and the random identifier described above. Your device’s name is never sent.
@@ -109,13 +132,31 @@ handles this traffic under their own terms. Use an <code>https://</code> address
   <li>the title and year read from a folder or file name, or an ID from an NFO file in your folders or from your
     media server;</li>
   <li>when you match a title by hand, the words and year you type into that search;</li>
-  <li>the language for the results (Chinese or English), chosen from your device’s language settings;</li>
+  <li>the language for the results, the same as the app’s language;</li>
   <li>an API key: the app’s own, or yours if you entered one.</li>
 </ul>
 <p>Images are then loaded from TMDB’s image server. Like any internet request, these show TMDB your IP address.
 They do not include your server’s address, your user names or passwords. TMDB handles them under its
 <a href="https://www.themoviedb.org/privacy-policy">privacy policy</a>.</p>
 <p class="notice">This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.</p>
+
+<h3>TheIntroDB and IntroDB (intro and credits times)</h3>
+<p>While a film or episode plays, the app asks TheIntroDB (theintrodb.org) and IntroDB (introdb.app) where its
+intro, recap and credits are, so it can offer Skip Intro. It sends the title’s TMDB or IMDb ID, the season and
+episode, and to TheIntroDB the video’s length (to tell one cut of a film from another). Like any internet
+request, these show them your IP address. They do not include your server’s address, file names, user names or
+passwords. They are asked only when your own server and the video’s chapters have no such times.</p>
+
+<h3>OpenSubtitles (subtitle search)</h3>
+<p>Only when you search for subtitles in the player: the app sends OpenSubtitles.com the title’s TMDB ID (for an
+episode, the series’ ID with the season and episode), a short fingerprint of the video file (the OpenSubtitles
+“movie hash”, worked out on your device from the file’s size and its first and last 64 KB; the video itself is not
+sent), the title when there is no ID, and the languages you chose, with the app’s API key. If you sign in, your
+user name and password are sent once, and the access token it returns is used for downloads. Like any internet
+request, these show OpenSubtitles your IP address. They do not include your server’s address or your source’s
+user names and passwords. OpenSubtitles handles them under its own privacy policy, published at
+opensubtitles.com.</p>
+<p>Searching your Jellyfin, Emby or Plex server for subtitles asks only that server.</p>
 
 <h3>Plex (plex.tv)</h3>
 <p>Only if you add a Plex server: the app asks plex.tv for a sign-in code, opens Plex’s sign-in page in your
@@ -130,7 +171,16 @@ policy, published at plex.tv.</p>
   <li>If you have turned on Share With App Developers (Settings &gt; Privacy &amp; Security &gt; Analytics &amp;
     Improvements; on a Mac, in System Settings), Apple shares crash reports and usage statistics for the app with
     us. Apple runs this, and you can turn it off there at any time.</li>
-  <li>iCloud Keychain, when you use it, is run and encrypted by Apple; we cannot read it.</li>
+  <li>iCloud Keychain, when you use it, is run and encrypted by Apple; we cannot read it. iCloud Sync stores its
+    data in your own iCloud account, in this app’s private CloudKit database; we cannot read it.</li>
+  <li><strong>SharePlay</strong>: when you watch together in a FaceTime call, the app sends the others in the call
+    the title, the season and episode, the video’s file name and size (so their own copy can be found in their
+    library), and play, pause and seek. This goes through Apple’s SharePlay, end-to-end encrypted, to the people in
+    the call only; we receive nothing.</li>
+  <li><strong>Handoff</strong>: the title on screen, or the video playing with its source, file path and position, is
+    offered to your other devices signed in to the same Apple Account, through Apple.</li>
+  <li><strong>Translated subtitles</strong>: translation runs on your device with Apple’s Translation; the languages
+    are downloaded from Apple when you first use them.</li>
 </ul>
 
 <h3>Your local network</h3>
@@ -142,13 +192,21 @@ policy, published at plex.tv.</p>
     new address with a long random part.</li>
 </ul>
 
+<h3>Your home (Lights)</h3>
+<p>Only if you turn on Lights in Settings (iPhone, iPad, Apple Vision Pro): the app asks for access to your Home,
+lists its lights and scenes so you can choose, and while a film plays dims the ones you chose, then puts them back.
+It reads and changes only those. This stays between your device and your accessories; data from your Home is not
+sent to us and is not used for advertising or anything else.</p>
+
 <h3>Links</h3>
 <p>Links in the app, such as TMDB’s website, the open-source licenses and this website, open in your browser.</p>
 
 <h2>What the app does not do</h2>
 <ul>
   <li>It does not ask for your name, email address or phone number, and has no account.</li>
-  <li>It does not use your location, contacts, photos, camera or microphone.</li>
+  <li>It does not use your location, contacts, photos, camera or microphone. Audio analysis (finding intros across
+    episodes, lining subtitles up with speech) listens to the film’s own sound as it plays, on the device.</li>
+  <li>It does not use data from your Home for anything but the lights you chose.</li>
   <li>It does not show ads and does not use the advertising identifier.</li>
   <li>It does not send us your library, what you watch, or your settings.</li>
 </ul>
@@ -156,8 +214,9 @@ policy, published at plex.tv.</p>
 <h2 id="diagnostics">Diagnostics reports</h2>
 <p>In Settings, Diagnostics can make a report to help with a problem. It contains the app and system versions,
 the device model, the kind and host name of each source, counts from your library, recent scan results and
-errors, recent playback problems with the file names involved, recent messages from the playback engine, and the
-latest MetricKit reports. Passwords, user names, tokens, keys, request header values and the parameters of web
+errors, recent playback problems with the file names involved, recent messages from the playback engine, recent
+iCloud Sync steps and errors, if you use Lights the names of your home and of the rooms, lights and scenes involved,
+and the latest MetricKit reports. Passwords, user names, tokens, keys, request header values and the parameters of web
 links are removed. The report is made on your device and leaves it only when you choose Share Report and send it
 somewhere yourself, for example by email to us.</p>
 
@@ -171,11 +230,18 @@ mailbox until you ask us to delete them.</p>
 
 <h2>Removing your data</h2>
 <ul>
-  <li><strong>Remove a source</strong> in the app’s source list. This deletes its Keychain item, on every device
+  <li><strong>Remove a source</strong> in the Files tab. This deletes its Keychain item, on every device
     that shares it through iCloud Keychain, together with its library files and its poster copies. Nothing on the
     server is deleted. Resume positions, watched marks and cached images stay until you delete the app (the image
     cache is emptied every six months).</li>
   <li><strong>Your TMDB key</strong>: clear it in Settings.</li>
+  <li><strong>OpenSubtitles</strong>: sign out in Settings &gt; Online Subtitles.</li>
+  <li><strong>iCloud Sync</strong>: turn it off in Settings to stop syncing; what this device holds stays. To delete
+    what the app keeps in iCloud, use your device’s iCloud storage settings (manage storage, choose Zool, delete its
+    data). Deleting the app does not delete its iCloud data.</li>
+  <li><strong>Lights</strong>: turn Lights off in Settings; to take away the app’s access to your Home, use the
+    system’s Privacy &amp; Security settings (Home).</li>
+  <li><strong>Watch statistics</strong>: the record of plays is deleted with the app.</li>
   <li><strong>Delete the app</strong> to remove the rest of its data from that device. On a Mac, also delete the
     folder <code>~/Library/Containers/com.xiaweiliu.zool</code>. Keychain items can outlast the app, so remove
     your sources in the app first; otherwise, on a Mac, delete the items named “Reel sources” and “Reel TMDB key”
@@ -197,7 +263,7 @@ page is revised and the date changes.</p>
 
 <article lang="zh-Hans" id="zh" class="lang">
 <h1>Zool 隐私政策</h1>
-<p class="updated">更新日期：2026 年 10 月 13 日</p>
+<p class="updated">更新日期：2026 年 10 月 17 日</p>
 
 <p>Zool 是一款适用于 Apple 设备的视频播放器，播放你自己搭建的存储和媒体服务器上的电影和剧集。本页说明这款 app
 保存哪些数据、数据去哪里、怎样删除。Zool 的开发者是 Xiawei Liu（下称“我们”）。</p>
@@ -206,7 +272,7 @@ page is revised and the date changes.</p>
 <ul>
   <li>我们没有为这款 app 运行任何服务器，不收集个人数据，也不需要注册账号。</li>
   <li>app 里没有广告、没有分析工具、没有第三方追踪代码，不会在其他公司的 app 或网站之间追踪你。</li>
-  <li>app 只连接你添加的片源、提供海报和简介的 TMDB、用 Plex 登录时的 plex.tv，以及 Apple。</li>
+  <li>app 只连接你添加的片源、提供海报和简介的 TMDB、提供片头片尾时间的 TheIntroDB 和 IntroDB、用 Plex 登录时的 plex.tv、你搜索字幕时的 OpenSubtitles，以及 Apple。</li>
   <li>片源的地址和密码保存在你的钥匙串里。你的片库和观看记录不会发给我们。</li>
 </ul>
 
@@ -214,12 +280,15 @@ page is revised and the date changes.</p>
 <div class="table"><table>
   <thead><tr><th>内容</th><th>用途</th><th>位置和保存多久</th></tr></thead>
   <tbody>
-    <tr><td>每个片源的地址、用户名、密码或访问令牌、文件夹、你添加的请求头，以及你选择信任的证书指纹</td>
+    <tr><td>每个片源的地址、用户名、密码或访问令牌、文件夹、你添加的请求头，以及你选择信任的证书或 SSH 服务器密钥的指纹</td>
       <td data-label="用途">连接你的片源</td>
       <td data-label="位置">你的钥匙串。打开 iCloud 钥匙串时，Apple 会把它同步到登录同一个 Apple 账户的其他设备。保存到你移除这个片源为止。</td></tr>
     <tr><td>你自己的 TMDB 密钥（如果填了）</td>
       <td data-label="用途">用你的密钥查询片名</td>
       <td data-label="位置">你的钥匙串，同样会同步。</td></tr>
+    <tr><td>你的 OpenSubtitles 登录（如果登录）：一个访问令牌，不是密码</td>
+      <td data-label="用途">每天下载的字幕数超过不登录时 OpenSubtitles 给的额度</td>
+      <td data-label="位置">钥匙串，和片源一样同步；在“设置”里退出登录时删除。</td></tr>
     <tr><td>片库：文件夹和文件名、大小、日期，以及每部作品匹配到的 TMDB 条目</td>
       <td data-label="用途">打开片库时不用重新扫描</td>
       <td data-label="位置">app 自己的存储空间，每次扫描后更新。</td></tr>
@@ -234,7 +303,19 @@ page is revised and the date changes.</p>
       <td data-label="位置">缩小后的副本存在 app 的缓存里，移除这个片源时删除。</td></tr>
     <tr><td>播放进度和已看标记；音轨、字幕的选择和字幕设置</td>
       <td data-label="用途">从上次的位置继续，记住你的选择</td>
-      <td data-label="位置">这台设备上 app 的设置，不同步。开头一分钟内的进度不保存，看过 95% 的视频标为已看。</td></tr>
+      <td data-label="位置">这台设备上 app 的设置。打开 iCloud 同步时（在“设置”里；不关就是开的），也存在你自己的 iCloud 里这个 app 的私有 CloudKit 数据库，同步到登录同一个 Apple 账户的设备上。由 Apple 运行和加密，我们无法读取。开头一分钟内的进度不保存，看过 95% 的视频标为已看。</td></tr>
+    <tr><td>手动匹配、隐藏的条目、加进片库的文件夹、收藏、播放列表、你设的片头片尾标记</td>
+      <td data-label="用途">保留你的选择</td>
+      <td data-label="位置">这台设备上 app 的存储；打开 iCloud 同步时也存在你自己的 iCloud 里（同上）。保存到你改掉为止；关掉 iCloud 同步，它们留在这台设备上。</td></tr>
+    <tr><td>播放记录：片名、时间、看了多久、在哪类设备上</td>
+      <td data-label="用途">观看统计和年度回顾</td>
+      <td data-label="位置">这台设备上 app 的存储，每月一个文件。回顾图只在你自己分享时离开设备。</td></tr>
+    <tr><td>灯光：你选的灯或场景、调暗多少</td>
+      <td data-label="用途">播放时调暗、结束后恢复</td>
+      <td data-label="位置">这台设备上 app 的设置，不同步。</td></tr>
+    <tr><td>片库里的片名，给 Siri、快捷指令、聚焦搜索和小组件用</td>
+      <td data-label="用途">在 app 外面也能找到、接着看</td>
+      <td data-label="位置">这台设备上：系统的聚焦搜索索引，以及和小组件共用的文件夹（继续观看和它的图片）。</td></tr>
     <tr><td>一个随机标识符，第一次需要时生成</td>
       <td data-label="用途">让 Jellyfin、Emby、Plex 服务器区分这台设备的播放会话</td>
       <td data-label="位置">这台设备上 app 的设置。</td></tr>
@@ -260,6 +341,9 @@ page is revised and the date changes.</p>
   <li><strong>SMB</strong>：用你的用户名和密码登录共享。</li>
   <li><strong>Jellyfin 和 Emby</strong>：登录时发送一次用户名和密码，服务器返回的访问令牌只保存在内存里。</li>
   <li><strong>Plex</strong>：你在浏览器里登录 Plex 自己的网站，app 看不到你的 Plex 密码。Plex 把访问令牌和你的服务器列表交给 app。</li>
+  <li><strong>SFTP</strong>：用你的用户名和密码，或者你的私钥，通过 SSH 登录服务器。第一次连接时 app 显示服务器密钥的指纹，你确认后才信任。</li>
+  <li><strong>FTP</strong>：用户名和密码按 FTP 的方式不加密地发给服务器；添加 FTP 服务器时 app 会说明。</li>
+  <li><strong>设备上的文件夹</strong>：你在“文件”App 里选的文件夹（本机、iCloud 云盘、U 盘；Mac 上任何文件夹）直接读取。app 只在这台设备上记住这个文件夹，不发往任何地方。</li>
 </ul>
 <p>Jellyfin、Emby 和 Plex 服务器会收到 app 的名称和版本、设备类型（iPhone、iPad、Mac 或 Apple Vision Pro）、平台，以及上面说的随机标识符，
 不会收到你设备的名称。播放时，app 大约每十秒告诉这些服务器正在播放哪一项、播放到哪里、是在播放、暂停还是已停止，让服务器记住你的进度；
@@ -272,12 +356,24 @@ app 也会从这些服务器读取续播位置和已看标记。WebDAV 和 SMB �
 <ul>
   <li>从文件夹名或文件名里读出的片名和年份，或者来自你文件夹里 NFO 文件、或你的媒体服务器的条目编号；</li>
   <li>你手动匹配作品时，在那个搜索框里输入的文字和年份；</li>
-  <li>结果的语言（中文或英文），根据你设备的语言设置选择；</li>
+  <li>结果的语言，和 app 的界面语言一致；</li>
   <li>一个 API 密钥：app 自带的，或者你填写的。</li>
 </ul>
 <p>之后 app 从 TMDB 的图片服务器加载图片。和所有联网请求一样，TMDB 能看到你的 IP 地址。这些请求不包含你的服务器地址、用户名或密码。
 TMDB 按它的<a href="https://www.themoviedb.org/privacy-policy">隐私政策</a>处理这些请求。</p>
 <p class="notice">This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.（本应用使用 TMDB 和 TMDB API，但未经 TMDB 认可、认证或批准。）</p>
+
+<h3>TheIntroDB 和 IntroDB（片头片尾时间）</h3>
+<p>播放电影或剧集时，app 向 TheIntroDB（theintrodb.org）和 IntroDB（introdb.app）查询片头、前情提要和片尾在哪里，用来显示“跳过片头”。
+发送的是这部片的 TMDB 或 IMDb 编号、季和集，向 TheIntroDB 还发送视频长度（用来区分同一部片的不同版本）。和所有联网请求一样，它们能看到你的 IP 地址。
+这些请求里没有你的服务器地址、文件名、用户名或密码。只有你的服务器和视频的章节里都没有这些时间时才查询。</p>
+
+<h3>OpenSubtitles（搜索字幕）</h3>
+<p>只在你在播放器里搜索字幕时：app 向 OpenSubtitles.com 发送这部片的 TMDB 编号（剧集是剧的编号加季和集）、视频文件的一个短指纹
+（OpenSubtitles 的“movie hash”，在你的设备上由文件大小和开头、结尾各 64 KB 算出；视频本身不发送）、没有编号时的片名、你选的语言，
+以及 app 的 API key。如果你登录，用户名和密码只发送一次，之后用它返回的访问令牌下载。和所有联网请求一样，OpenSubtitles 能看到你的 IP 地址。
+这些请求里没有你的服务器地址，也没有片源的用户名和密码。OpenSubtitles 按它在 opensubtitles.com 上公布的隐私政策处理。</p>
+<p>在你的 Jellyfin、Emby 或 Plex 服务器上搜字幕，只问那台服务器。</p>
 
 <h3>Plex（plex.tv）</h3>
 <p>只在你添加 Plex 服务器时：app 向 plex.tv 申请一个登录码，在浏览器里打开 Plex 的登录页面，然后收到你的访问令牌和服务器列表。
@@ -288,7 +384,11 @@ TMDB 按它的<a href="https://www.themoviedb.org/privacy-policy">隐私政策</
   <li>安装和更新 app 经由 App Store，适用 <a href="https://www.apple.com/legal/privacy/">Apple 的隐私政策</a>。</li>
   <li>如果你打开了“与 App 开发者共享”（设置 &gt; 隐私与安全性 &gt; 分析与改进；Mac 上在“系统设置”里），Apple 会把这款 app 的崩溃报告和使用统计提供给我们。
     这由 Apple 管理，你可以随时在那里关闭。</li>
-  <li>你使用 iCloud 钥匙串时，它由 Apple 运行和加密，我们无法读取。</li>
+  <li>你使用 iCloud 钥匙串时，它由 Apple 运行和加密，我们无法读取。iCloud 同步的数据存在你自己的 iCloud 账户里这个 app 的私有 CloudKit 数据库，我们无法读取。</li>
+  <li><strong>同播共享</strong>：在 FaceTime 通话里一起看时，app 把片名、季和集、视频的文件名和大小（让对方在自己的片库里找到同一个文件）以及播放、暂停、跳转发给通话里的其他人。
+    经 Apple 的同播共享传递，端到端加密，只到通话里的人；我们收不到任何东西。</li>
+  <li><strong>接力</strong>：屏幕上的作品，或者正在播的视频（片源、文件路径、位置），通过 Apple 提供给登录同一个 Apple 账户的你的其他设备。</li>
+  <li><strong>翻译字幕</strong>：翻译在你的设备上用 Apple 的翻译完成；第一次用某种语言时从 Apple 下载语言包。</li>
 </ul>
 
 <h3>你的本地网络</h3>
@@ -298,20 +398,25 @@ TMDB 按它的<a href="https://www.themoviedb.org/privacy-policy">隐私政策</
     每次播放都使用一个新的、带有很长随机部分的地址。</li>
 </ul>
 
+<h3>你的家（灯光）</h3>
+<p>只有在“设置”里打开“灯光”时（iPhone、iPad、Apple Vision Pro）：app 请求访问你的“家庭”，列出灯和场景让你选，播放时把你选的调暗，结束后恢复。
+只读取和改动这些。这些只在你的设备和配件之间；“家庭”的数据不发给我们，也不用于广告或其他用途。</p>
+
 <h3>链接</h3>
 <p>app 里的链接，比如 TMDB 网站、开源许可和本网站，会在你的浏览器里打开。</p>
 
 <h2>app 不做的事</h2>
 <ul>
   <li>不要求你提供姓名、邮箱或电话号码，没有账号。</li>
-  <li>不使用你的位置、通讯录、照片、相机或麦克风。</li>
+  <li>不使用你的位置、通讯录、照片、相机或麦克风。音频分析（跨集找片头、让字幕对上对白）分析的是正在播放的片子自己的声音，在设备上完成。</li>
+  <li>除了你选的灯，不把“家庭”的数据用在别处。</li>
   <li>不显示广告，不使用广告标识符。</li>
   <li>不把你的片库、观看内容或设置发送给我们。</li>
 </ul>
 
 <h2>诊断报告</h2>
 <p>“设置”里的“诊断”可以生成一份报告，帮助排查问题。报告包含 app 和系统版本、设备型号、每个片源的类型和主机名、片库的数量统计、最近的扫描结果和错误、
-最近的播放问题及相关的文件名、播放引擎最近的消息，以及最新的 MetricKit 报告。密码、用户名、令牌、密钥、请求头的值和网页链接里的参数都会被去掉。
+最近的播放问题及相关的文件名、播放引擎最近的消息、最近的 iCloud 同步步骤和错误、使用“灯光”时你的家以及相关房间、灯和场景的名称，以及最新的 MetricKit 报告。密码、用户名、令牌、密钥、请求头的值和网页链接里的参数都会被去掉。
 报告在你的设备上生成，只有你选择“分享报告”并自己发出去（比如用邮件发给我们）时才会离开设备。</p>
 
 <h2>联系我们时</h2>
@@ -323,9 +428,13 @@ TMDB 按它的<a href="https://www.themoviedb.org/privacy-policy">隐私政策</
 
 <h2>删除你的数据</h2>
 <ul>
-  <li><strong>移除片源</strong>：在 app 的片源列表里移除。这会删除它的钥匙串项目（包括通过 iCloud 钥匙串同步到其他设备上的），以及它的片库文件和海报副本，
+  <li><strong>移除片源</strong>：在“文件”标签里移除。这会删除它的钥匙串项目（包括通过 iCloud 钥匙串同步到其他设备上的），以及它的片库文件和海报副本，
     服务器上的文件不会被删除。播放进度、已看标记和缓存的图片会保留到你删除 app 为止（图片缓存每六个月清空一次）。</li>
   <li><strong>你的 TMDB 密钥</strong>：在“设置”里清空。</li>
+  <li><strong>OpenSubtitles</strong>：在“设置”的“在线字幕”里退出登录。</li>
+  <li><strong>iCloud 同步</strong>：在“设置”里关掉就不再同步，这台设备上的留着。要删掉 app 存在 iCloud 里的数据，在设备的 iCloud 储存空间设置里（管理储存空间，选 Zool，删除数据）。删除 app 不会删除它在 iCloud 里的数据。</li>
+  <li><strong>灯光</strong>：在“设置”里关掉“灯光”；要收回访问“家庭”的权限，到系统的“隐私与安全性”设置（家庭）。</li>
+  <li><strong>观看统计</strong>：播放记录随 app 删除。</li>
   <li><strong>删除 app</strong>：删除这台设备上其余的数据。Mac 上还要删除文件夹 <code>~/Library/Containers/com.xiaweiliu.zool</code>。
     钥匙串项目可能在删除 app 后仍然保留，所以请先在 app 里移除片源；否则在 Mac 的“钥匙串访问”里删除名为“Reel sources”和“Reel TMDB key”的项目。</li>
   <li><strong>我们这边</strong>：除了你发来的邮件，我们没有任何关于你的数据。如需删除你的邮件，请写信到 <a href="mailto:support@xiaweiliu.com">support@xiaweiliu.com</a>。</li>
