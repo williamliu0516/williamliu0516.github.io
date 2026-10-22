@@ -22,7 +22,7 @@
 <main>
 <article lang="en">
 <h1>Zool Privacy Policy</h1>
-<p class="updated">Last updated: 17 October 2026</p>
+<p class="updated">Last updated: 21 October 2026</p>
 
 <p>Zool is a video player for Apple devices. It plays films and series from storage and media servers that you
 set up yourself. This page explains what data the app keeps, where data goes, and how to remove it. Zool is
@@ -148,10 +148,14 @@ request, these show them your IP address. They do not include your server’s ad
 passwords. They are asked only when your own server and the video’s chapters have no such times.</p>
 
 <h3>OpenSubtitles (subtitle search)</h3>
-<p>Only when you search for subtitles in the player: the app sends OpenSubtitles.com the title’s TMDB ID (for an
-episode, the series’ ID with the season and episode), a short fingerprint of the video file (the OpenSubtitles
-“movie hash”, worked out on your device from the file’s size and its first and last 64 KB; the video itself is not
-sent), the title when there is no ID, and the languages you chose, with the app’s API key. If you sign in, your
+<p>Only when you search for subtitles in the player: the app sends OpenSubtitles.com the video file’s name, the
+title’s TMDB ID when the app knows it (for an episode, the series’ ID with the season and episode), a short
+fingerprint of the video file (the OpenSubtitles “movie hash”, worked out on your device from the file’s size and its
+first and last 64 KB, which the app reads from your source for this; the video itself is not sent), and the languages
+you chose, with the app’s API key. The fingerprint is left out when working it out would mean extra reads from a media
+server where your account is not the administrator (or, for Plex, the owner), from a source that hands the file to
+another host (a cloud drive), or from a video the server converts, and when the file is larger than OpenSubtitles
+hashes (9 GB). If you sign in, your
 user name and password are sent once, and the access token it returns is used for downloads. Like any internet
 request, these show OpenSubtitles your IP address. They do not include your server’s address or your source’s
 user names and passwords. OpenSubtitles handles them under its own privacy policy, published at
@@ -263,7 +267,7 @@ page is revised and the date changes.</p>
 
 <article lang="zh-Hans" id="zh" class="lang">
 <h1>Zool 隐私政策</h1>
-<p class="updated">更新日期：2026 年 10 月 17 日</p>
+<p class="updated">更新日期：2026 年 10 月 21 日</p>
 
 <p>Zool 是一款适用于 Apple 设备的视频播放器，播放你自己搭建的存储和媒体服务器上的电影和剧集。本页说明这款 app
 保存哪些数据、数据去哪里、怎样删除。Zool 的开发者是 Xiawei Liu（下称“我们”）。</p>
@@ -369,9 +373,10 @@ TMDB 按它的<a href="https://www.themoviedb.org/privacy-policy">隐私政策</
 这些请求里没有你的服务器地址、文件名、用户名或密码。只有你的服务器和视频的章节里都没有这些时间时才查询。</p>
 
 <h3>OpenSubtitles（搜索字幕）</h3>
-<p>只在你在播放器里搜索字幕时：app 向 OpenSubtitles.com 发送这部片的 TMDB 编号（剧集是剧的编号加季和集）、视频文件的一个短指纹
-（OpenSubtitles 的“movie hash”，在你的设备上由文件大小和开头、结尾各 64 KB 算出；视频本身不发送）、没有编号时的片名、你选的语言，
-以及 app 的 API key。如果你登录，用户名和密码只发送一次，之后用它返回的访问令牌下载。和所有联网请求一样，OpenSubtitles 能看到你的 IP 地址。
+<p>只在你在播放器里搜索字幕时：app 向 OpenSubtitles.com 发送视频文件的文件名、app 知道时这部片的 TMDB 编号（剧集是剧的编号加季和集）、
+视频文件的一个短指纹（OpenSubtitles 的“movie hash”，在你的设备上由文件大小和开头、结尾各 64 KB 算出，这两段为此从你的片源读取；
+视频本身不发送）、你选的语言，以及 app 的 API key。要从你的账号不是管理员（Plex 是不是所有者）的媒体服务器、把文件转给别的主机（网盘）
+的片源、或者服务器转码的视频多读这两段时，以及文件大于 OpenSubtitles 算指纹的上限（9 GB）时，不算也不发送指纹。如果你登录，用户名和密码只发送一次，之后用它返回的访问令牌下载。和所有联网请求一样，OpenSubtitles 能看到你的 IP 地址。
 这些请求里没有你的服务器地址，也没有片源的用户名和密码。OpenSubtitles 按它在 opensubtitles.com 上公布的隐私政策处理。</p>
 <p>在你的 Jellyfin、Emby 或 Plex 服务器上搜字幕，只问那台服务器。</p>
 
